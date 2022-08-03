@@ -1,0 +1,27 @@
+version: "3.3"
+
+services:
+  rp:
+    build: .
+    container_name: rp
+    volumes:
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./nginx/stream_mqtt.js:/etc/nginx/stream_mqtt.js:rw
+    ports:
+    - 1883:1883
+    networks:
+    - example
+
+  mosquitto:
+    container_name:  mosquitto
+    image: eclipse-mosquitto:2.0.14
+    volumes:
+    - ./mosquitto:/mosquitto:rw
+    ports:
+    - 18831:18831
+    networks:
+    - example
+
+networks:
+  example:
+
