@@ -34,7 +34,7 @@ function filter(s) {
 
                 if (topics.includes("topic1")) {
                     s.log(packet_type + " to " + topics);
-                    s.send(data, flags);
+                    s.send(data, flags); // !!!!!!!! this s.send(...) works, because it's called synchronously
                 } else {
                     s.log("calling http://google.com/")
                     const reply = await ngx.fetch("http://google.com/", {
@@ -43,7 +43,7 @@ function filter(s) {
                     const reply_text = await reply.text();
                     s.log("reply text from google.com:" + reply_text);
                     s.log(packet_type + " to " + topics);
-                    s.send(data, flags);
+                    s.send(data, flags); // !!!!!!!! this s.send(...) doesn't work, because it's called asynchronously
                 }
                 return;
             default:
